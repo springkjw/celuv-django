@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="container main celebrity">
+  <h2 class="title">셀럽 관리</h2>
+  <div class="title-button-group">
+    <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='{% url 'celebrity:create' %}'">셀럽 추가</button>
+    <button type="button" class="btn btn-outline-secondary">담당 셀럽 관리</button>
+  </div>
+  <div class="celebrity-filter">
+    <form class="form-inline" method="GET">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="entertainmentName">소속사명</label>
+              <input type="text" id="entertainmentName" class="form-control mx-sm-3" placeholder="소속사명 검색" />
+            </div>
+          </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="celebrityName">셀럽명</label>
+            <input type="text" id="celebrityName" class="form-control mx-sm-3" placeholder="셀럽명 검색 (예: 정유미)" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="entertainmentName">유형</label>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="celebrityType" id="celebrityTypeGroup" value="g">
+              <label class="form-check-label" for="celebrityTypeGroup">그룹/팀</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="celebrityType" id="celebrityTypeSingle" value="s">
+              <label class="form-check-label" for="celebrityTypeSingle">개인</label>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    </div>
+    <div class="celebrity-list">
+        {% for object in object_list %}
+            <div class="card col-2">
+              <img class="profile" src="{{ object.get_profile_image }}" width=20 height=20 />
+              <span class="celebrity-name">{{ object.name }}</span>
+              <div class="container">
+                <p class="card-info">
+                  <span>FANS</span>
+                  <span>2222</span>
+                </p>
+                <span class="card-info">
+                  <span>MANAGERS</span>
+                  <span class="card-manager">
+                    <p>김 매니저</p>
+                  </span>
+                </span>
+              </div>
+              <div class="button-group">
+                  <button class="btn btn-outline-secondary btn-sm">프로필 수정</button>
+                  <button class="btn btn-outline-secondary btn-sm">관리자 수정</button>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

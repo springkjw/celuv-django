@@ -1,0 +1,9 @@
+input {
+  border: 0.05rem solid #bdbdbd;
+  font-size: 0.6875rem;
+  height: 1.875rem;
+  &::placeholder {
+    font-size: 0.6875rem;
+    color: #bdbdbd;
+  }
+}

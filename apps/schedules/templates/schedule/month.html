@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'schedule.css' %}" >
+{% endblock %}
+
+{% block content %}
+<div class="container main">
+    <h2 class="title">2018년 01월 05일</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 calendar">
+                {{ calendar }}
+            </div>
+            <div class="col-4">
+                <div class="celebrity-list">
+                    <h5>셀럽</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'schedule:create' %}" class="add-schedule">스케줄 추가</a>
+</div>
+{% endblock %}

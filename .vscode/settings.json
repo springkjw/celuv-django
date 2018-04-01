@@ -1,0 +1,14 @@
+{
+  "python.pythonPath": "${workspaceRoot}/venv/bin/python",
+  "editor.rulers": [80],
+  "editor.tabSize": 4,
+  "html.format.enable": false,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "venv": true
+  }
+}

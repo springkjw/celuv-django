@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'celebrity.css' %}" >
+{% endblock %}
+
+{% block content %}
+<div class="container main celebrity">
+  <h4 class="sub-title">셀럽 추가</h4>
+  <hr />
+  <div class="container">
+    <form class="celebrity-form" method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group row">
+          <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
+          <div class="col-sm-10">
+            {{ field }}
+          </div>
+        </div>
+      {% endfor %}
+      <div>
+        <button type="button" class="btn" onclick="window.location.href='{% url 'celebrity:list' %}'">취소</button>
+        <button type="submit" class="btn">저장</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
