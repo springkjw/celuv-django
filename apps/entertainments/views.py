@@ -1,8 +1,10 @@
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
+from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import Entertainment
 from .forms import EntertainmentForm
+from .serializers import EntertainmentSerializer
 
 
 class EntertainmentListView(ListView):
@@ -16,8 +18,23 @@ class EntertainmentListView(ListView):
             queryset = queryset.filter(name__icontains=search)
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = EntertainmentForm()
+        context.update({
+            'form': form,
+        })
+        return context
 
-class EntertainmentCreateView(CreateView):
-    models = Entertainment
-    form_class = Entertainment
-    success_url = reverse_lazy('entertainment:list')
+
+class EntertainmentCreateAPIView(CreateAPIView):
+    serializer_class = EntertainmentSerializer
+    queryset = Entertainment.objects.all()
+
+
+class EntertainmentAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = EntertainmentSerializer
+    queryset = Entertainment.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        return self.patch(request, *args, **kwargs)

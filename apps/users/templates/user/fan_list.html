@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block javascript %}
+<script>
+$(function() {
+  $('#updateUserModal').on('show.bs.modal', function (e) {
+    var user_id = $(e.relatedTarget).data('id');
+    var modal = $(this);
+    $.ajax({
+      url: '{% url "user:fan" %}/' + user_id,
+      method: 'GET',
+      success: function(res) {
+        $.each(res, function( key, value) {
+          modal.find('input[name=' + key + ']').val(value);
+        }) 
+      }
+    })
+  })
+  $('#updateUserModal').on('hide.bs.modal', function (e) {
+    var modal = $(this);
+    moda.find(input).each(function() {
+      $(this).val('');
+    })
+  })
+});
+
+function deactiveUser(e, user_id, is_active) {
+  if (user_id === null) {
+    var user_id = $(e).parent().parent().find('input[name=pk]').val();
+    var is_active = true;
+  }
+  $.ajax({
+    url: '{% url "user:fan" %}/' + user_id,
+    method: 'PATCH',
+    data: {
+      "is_active": !is_active,
+    },
+    success: function(res) {
+      location.reload();
+    }
+  })
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container main user">
+    <h2 class="title">팬 계정</h2>
+    <h4 class="sub-title">
+      <a href="{% url 'user:manager' %}">관리자 계정</a>
+    </h4>
+    <div class="search-area">
+      <input type="search" placeholder="검색어를 입력하세요" name='search' />
+    </div>
+    <div class="user-list">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">NO</th>
+            <th scope="col">상태</th>
+            <th scope="col">사진</th>
+            <th scope="col">사용자 ID</th>
+            <th scope="col">가입 채널</th>
+            <th scope="col">닉네임</th>
+            <th scope="col">가입일</th>
+            <th scope="col">성별</th>
+            <th scope="col">제보</th>
+            <th scope="col">피드백</th>
+            <th scope="col">관심 샐럽</th>
+            <th scope="col">관리</th>
+          </tr>
+        </thead>
+          <tbody>
+            {% for object in object_list %}
+              <tr>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.pk }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">
+                  {% if object.is_active %}
+                    정상
+                  {% else %}
+                    차단
+                  {% endif %}
+                </td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">
+                  {% if object.get_profile_iamge %}
+                    <img src="{{ object.get_profile_image }}" />
+                  {% else %}
+                    <div class="empty-image" />
+                  {% endif %}
+                </td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.username }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_provider_display }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.name }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.date_joined|date:"Y/m/d h:m" }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_sex_display }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_report_count }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_feedback_count }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_celeb_count }}</td>
+                <td style="cursor: pointer;" onclick="deactiveUser(this, {{ object.pk}}, {% if object.is_active %}true{% else %}false{% endif %})">
+                  {% if object.is_active %}
+                    차단
+                  {% else %}
+                    차단 해제
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block modal %}
+<div class="modal fade" id="updateUserModal" tabindex="-1" role="dialog" aria-labelledby="updateUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">사용자 정보</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <img class="profile" src="" />
+          <h4 class="sub-title">기본정보</h4>
+          <input type="hidden"disabled class="form-control" id="id_pk" name='pk'>
+          <div class="form-group">
+            <label for="id_username" class="col-form-label">사용자 ID</label>
+            <input type="text" disabled class="form-control" id="id_username" name='username'>
+          </div>
+          <div class="form-group">
+            <label for="id_email" class="col-form-label">이메일</label>
+            <input type="text" disabled class="form-control" id="id_email" name='email'>
+          </div>
+          <div class="form-group">
+            <label for="id_provider" class="col-form-label">가입채널</label>
+            <input type="text" disabled class="form-control" id="id_provider" name='provider'>
+          </div>
+          <div class="form-group">
+            <label for="id_date_joined" class="col-form-label">가입일</label>
+            <input type="text" disabled class="form-control" id="id_date_joined" name='date_joined'>
+          </div>
+          <h4 class="sub-title">추가정보</h4>
+          <div class="form-group">
+            <label for="id_name" class="col-form-label">닉네임</label>
+            <input type="text" disabled class="form-control" id="id_namer" name='name'>
+          </div>
+          <div class="form-group">
+            <label for="id_sex" class="col-form-label">성별</label>
+            <input type="text" disabled class="form-control" id="id_sex" name='sex'>
+          </div>
+          <div class="form-group">
+            <label for="id_birth" class="col-form-label">생일</label>
+            <input type="text" disabled class="form-control" id="id_birth" name='birth'>
+          </div>
+          <h4 class="sub-title">이용정보</h4>
+          <div class="form-group">
+            <label for="id_report" class="col-form-label">제보</label>
+            <input type="text" disabled class="form-control" id="id_report" name='report'>
+          </div>
+          <div class="form-group">
+            <label for="id_feedback" class="col-form-label">피드백</label>
+            <input type="text" disabled class="form-control" id="id_feedback" name='feedback'>
+          </div>
+          <div class="form-group">
+            <label for="id_like" class="col-form-label">관심 셀럽</label>
+            <input type="text" disabled class="form-control" id="id_like" name='like'>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" onclick="deactiveUser(this, null, null)">계정 차단</button>
+        <button type="button" class="btn" data-dismiss="modal">임시 비밀번호 발급</button>
+        <button type="button" class="btn" data-dismiss="modal">저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

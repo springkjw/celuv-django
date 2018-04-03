@@ -3,15 +3,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import HomeView
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', HomeView.as_view(), name='home'),
+    path('', include('apps.bases.urls', namespace='base')),
+    path('user/', include('apps.users.urls', namespace='user')),
     path('celebrity/', include('apps.celebritys.urls', namespace='celebrity')),
     path('entertainment/', include('apps.entertainments.urls',
                                    namespace='entertainment')),
     path('schedule/', include('apps.schedules.urls', namespace='schedule')),
+    path('admin/', admin.site.urls),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

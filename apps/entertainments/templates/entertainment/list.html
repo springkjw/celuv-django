@@ -1,7 +1,136 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<div class="container">
+{% block javascript %}
+<script>
+  $(function() {
+    $('#createEntertainment').ajaxForm({
+      success: function(res) {
+        location.reload();
+      }
+    })
+    $('#updateEntertainment').ajaxForm({
+      success: function(res) {
+        location.reload();
+      }
+    })
+    $("#updateEntertainmentModal").on('show.bs.modal', function(e) {
+      var e_id = $(e.relatedTarget).data('id');
+      var modal = $(this);
+      modal.find('input[name=id]').val(e_id);
+      modal.find('form').attr('action', '/entertainment/' + e_id);
+      $.ajax({
+        url: "/entertainment/" + e_id,
+        method: "GET",
+        success: function(res) {
+          $.each(res, function( key, value ) {
+            if (key !== 'image') {
+              modal.find('input[name=' + key + ']').val(value);
+            }
+          })
+        }
+      })
+    })
+  })
+function deleteEntertainment(e) {
+  var e_id = $(e).parent().parent().parent().parent().find('input[name=id]').val();
+  $.ajax({
+    url: "/entertainment/" + e_id,
+    method: "DELETE",
+    success: function(res) {
+      location.reload();
+    }
+  })
+}
+</script>
+{% endblock %}
 
+{% block content %}
+<div class="container main entertainment">
+  <h3 class="title">기획사 관리</h3>
+  <div class="title-button-group">
+    <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#createEntertainmentModal">기획사 추가</button>
+  </div>
+  <div class="entertainment-list">
+    {% for object in object_list %}
+      <div class="card col-2">
+        <img class="profile" src="{{ object.get_profile_image }}" width=20 height=20 />
+        <span class="name">{{ object.name }}</span>
+        <div class="container">
+          <p class="card-info">
+            <span>셀럽</span>
+            <span>2222</span>
+          </p>
+          <p class="card-info">
+            <span>매니저</span>
+            <span>2222</span>
+          </p>
+        </div>
+        <button class="btn" data-toggle="modal" data-target="#updateEntertainmentModal" data-id="{{ object.pk }}">정보수정</button>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block modal %}
+<div class="modal fade" id="createEntertainmentModal" tabindex="-1" role="dialog" aria-labelledby="createEntertainmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'entertainment:create' %}" id="createEntertainment">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">기획사 추가</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% for field in form %}
+            <div class="form-group row">
+              <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
+              <div class="input col-sm-10">
+                {{ field }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">취소</button>
+            <button type="submit" class="btn">저장</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal fade" id="updateEntertainmentModal" tabindex="-1" role="dialog" aria-labelledby="updateEntertainmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <input type="hidden" name="id" />
+    <form method="POST" enctype="multipart/form-data" action="" id="updateEntertainment">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">기획사 정보 수정</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {% for field in form %}
+            <div class="form-group row">
+              <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
+              <div class="input col-sm-10">
+                {{ field }}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn" onclick="deleteEntertainment(this)">기획사 삭제</button>
+          <button type="button" class="btn" data-dismiss="modal">취소</button>
+          <button type="submit" class="btn">저장</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock %}

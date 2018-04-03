@@ -1,3 +1,12 @@
 venv/
 assets/
 db.sqlte3
+.vscode/
+
+*.py[cod]
+__pycache__/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

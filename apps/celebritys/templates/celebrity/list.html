@@ -44,28 +44,28 @@
     </form>
     </div>
     <div class="celebrity-list">
-        {% for object in object_list %}
-            <div class="card col-2">
-              <img class="profile" src="{{ object.get_profile_image }}" width=20 height=20 />
-              <span class="celebrity-name">{{ object.name }}</span>
-              <div class="container">
-                <p class="card-info">
-                  <span>FANS</span>
-                  <span>2222</span>
-                </p>
-                <span class="card-info">
-                  <span>MANAGERS</span>
-                  <span class="card-manager">
-                    <p>김 매니저</p>
-                  </span>
-                </span>
-              </div>
-              <div class="button-group">
-                  <button class="btn btn-outline-secondary btn-sm">프로필 수정</button>
-                  <button class="btn btn-outline-secondary btn-sm">관리자 수정</button>
-              </div>
-            </div>
-        {% endfor %}
+      {% for object in object_list %}
+        <div class="card col-2">
+          <img class="profile" src="{{ object.get_profile_image }}" width=20 height=20 />
+          <span class="celebrity-name">{{ object.name }}</span>
+          <div class="container">
+            <p class="card-info">
+              <span>FANS</span>
+              <span>2222</span>
+            </p>
+            <span class="card-info">
+              <span>MANAGERS</span>
+              <span class="card-manager">
+                <p>김 매니저</p>
+              </span>
+            </span>
+          </div>
+          <div class="button-group">
+              <button class="btn btn-outline-secondary btn-sm">프로필 수정</button>
+              <button class="btn btn-outline-secondary btn-sm">관리자 수정</button>
+          </div>
+        </div>
+      {% endfor %}
     </div>
 </div>
 {% endblock %}

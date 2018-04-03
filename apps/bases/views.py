@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import RedirectView
+from django.urls import reverse_lazy
 
-# Create your views here.
+
+class HomeView(RedirectView):
+    url = reverse_lazy('celebrity:list')

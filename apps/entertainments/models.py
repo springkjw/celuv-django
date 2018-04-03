@@ -1,8 +1,8 @@
 from django.db import models
+from django.conf import settings
 
-
-def entertainment_image(self):
-    return
+def entertainment_image(instance, filename):
+    return "entertainment/%s/%s" % (instance.pk, filename)
 
 
 class Entertainment(models.Model):
@@ -40,3 +40,27 @@ class Entertainment(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def get_profile_image(self):
+        if not self.image:
+            return settings.STATIC_URL + '/img/empty_profile.svg'
+        return self.image.url
+
+
+# class Manager(models.Model);
+#     # 엔터테인먼트 매니저
+#     POSITION = (
+#         ('', ''),
+#         ('', ''),
+#     )
+#     user 
+#     entertainment = 
+
+#     class Meta:
+#         db_tabe = 'entertainment_manager'
+#         verbose_name = '기획사 매니저'
+#         verbose_name_plural = '기획서 매니저들'
+
+#     def __str__(self):
+#         return self.
