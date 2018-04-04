@@ -72,15 +72,15 @@ WSGI_APPLICATION = 'celuv.wsgi.application'
 
 if 'RDS_DB_NAME' in os.environ:
     DATABASES = {
-	    'default': {
-	        'ENGINE': 'django.db.backends.mysql',
-	        'NAME': os.environ['RDS_DB_NAME'],
-	        'USER': os.environ['RDS_USERNAME'],
-	        'PASSWORD': os.environ['RDS_PASSWORD'],
-	        'HOST': os.environ['RDS_HOSTNAME'],
-	        'PORT': os.environ['RDS_PORT'],
-	    }
-	}
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -171,5 +171,5 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%Y/%m/%d %H:%M'
 }
 
-AWS_ACCEE_KEY_ID = 'AKIAI3WKB7UK52ZXXFHQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCEE_KEY_ID = 'AKIAI7F2TBQGALFDSWEQ'
+AWS_SECRET_ACCESS_KEY = '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'
