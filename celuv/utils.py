@@ -1,4 +1,6 @@
 import os
+from django.contrib.staticfiles.storage import CachedFilesMixin, ManifestFilesMixin
+from pipeline.storage import PipelineMixin
 from storages.backends.s3boto import S3BotoStorage
 from django.conf import settings
 
@@ -12,7 +14,7 @@ def MediaRootS3BotoStorage(): return S3BotoStorage(location='media')
 os.environ['S3_USE_SIGV4'] = 'True'
 
 
-class S3Storage(S3BotoStorage):
+class S3Storage(PipelineMixin, ManifestFilesMixin, S3BotoStorage):
     @property
     def connection(self):
         if self._connection is None:
