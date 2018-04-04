@@ -3,7 +3,8 @@ autopep8==1.3.4
 awscli==1.14.69
 awsebcli==3.12.4
 blessed==1.14.2
-botocore==1.9.22
+boto3==1.6.23
+botocore==1.9.23
 cement==2.8.2
 colorama==0.3.7
 Django==2.0.4
