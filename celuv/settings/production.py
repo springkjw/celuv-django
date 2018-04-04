@@ -3,30 +3,24 @@ from django.conf import settings
 
 DEBUG = False
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': os.environ['RDS_DB_NAME'],
-#         'USER': os.environ['RDS_USERNAME'],
-#         'PASSWORD': os.environ['RDS_PASSWORD'],
-#         'HOST': os.environ['RDS_HOSTNAME'],
-#         'PORT': os.environ['RDS_PORT'],
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(settings.BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ['RDS_DB_NAME'],
+        'USER': os.environ['RDS_USERNAME'],
+        'PASSWORD': os.environ['RDS_PASSWORD'],
+        'HOST': os.environ['RDS_HOSTNAME'],
+        'PORT': os.environ['RDS_PORT'],
     }
 }
 
 
-AWS_ACCESS_KEY_ID = 'AKIAJX3IGQDUYEO5G6FA'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIAIGLOIDQAXXBEO7AA'
+AWS_SECRET_ACCESS_KEY = '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'
 
 AWS_QUERYSTRING_AUTH = False
 
-DEFAULT_FILE_STORAGE = 'celuv.utils.MediaRootS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'celuv.utils.MediaRootS31otoStorage'
 STATICFILES_STORAGE = 'celuv.utils.StaticRootS3BotoStorage'
 AWS_STORAGE_BUCKET_NAME = 'celuv'
 S3DIRECT_REGION = 'ap-northeast-2'
