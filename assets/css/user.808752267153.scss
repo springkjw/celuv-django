@@ -1,0 +1,49 @@
+.user {
+  .search-area {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .table {
+    margin-top: 1rem;
+    .empty-image {
+      background: #757575;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+    }
+  }
+}
+
+#updateUserModal {
+  .sub-title {
+    font-size: 0.9375rem;
+    color: #757575;
+    margin-bottom: 1rem;
+  }
+  input { 
+    font-size: 0.75rem;
+  }
+  .modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+#createManagerModal {
+  .sub-title {
+    font-size: 0.9375rem;
+    color: #757575;
+    margin-bottom: 1rem;
+  }
+  input { 
+    font-size: 0.75rem;
+  }
+  .modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}

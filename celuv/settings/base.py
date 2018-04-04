@@ -108,9 +108,6 @@ PIPELINE = {
         }
     }
 }
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (

@@ -36,6 +36,9 @@ MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 MEDIA_ROOT = MEDIA_URL
 
 STATIC_URL = S3_URL + 'static/'
+STATICFILES_DIRS = [
+    os.path.join(settings.BASE_DIR, 'assets'),
+]
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 AWS_S3_HOST = 's3.%s.amazonaws.com' % S3DIRECT_REGION

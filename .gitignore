@@ -1,7 +1,6 @@
 venv/
 db.sqlite3
 .vscode/
-assets/
 
 *.py[cod]
 __pycache__/
