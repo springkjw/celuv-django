@@ -1,5 +1,4 @@
 venv/
-assets/
 db.sqlite3
 .vscode/
 

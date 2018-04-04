@@ -1,0 +1,47 @@
+.main {
+  margin-top: 3rem;
+  .title {
+    font-size: 1.5rem;
+    color: #12012d;
+    margin-bottom: 2rem;
+  }
+  .sub-title {
+    font-size: 0.9rem;
+    color: #757575;
+    margin-bottom: 1rem;
+  }
+}
+
+form {
+  .form-group {
+    display: flex;
+    flex-direction: row;
+    label {
+      width: 5rem;
+      font-size: 0.75rem;
+      color: #757575;
+    }
+    .input {
+      flex: 1;
+    }
+  }
+  .form-btn-group {
+    .btn {
+      margin-right: 0.8rem;
+    }
+  }
+}
+
+table {
+  th, td {
+    border-bottom: #BDBDBD;
+    font-size: 0.6875rem;
+    color: #757575;
+    height: 2.25rem;
+  }
+}
+
+a {
+  color: #757575;
+  text-decoration: 0;
+}

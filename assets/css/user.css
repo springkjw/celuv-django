@@ -1,0 +1,36 @@
+.user .search-area {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; }
+.user .table {
+  margin-top: 1rem; }
+  .user .table .empty-image {
+    background: #757575;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%; }
+
+#updateUserModal .sub-title {
+  font-size: 0.9375rem;
+  color: #757575;
+  margin-bottom: 1rem; }
+#updateUserModal input {
+  font-size: 0.75rem; }
+#updateUserModal .modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+#createManagerModal .sub-title {
+  font-size: 0.9375rem;
+  color: #757575;
+  margin-bottom: 1rem; }
+#createManagerModal input {
+  font-size: 0.75rem; }
+#createManagerModal .modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; }
+
+/*# sourceMappingURL=user.css.map */
