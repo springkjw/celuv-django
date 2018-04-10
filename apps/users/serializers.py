@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import MyUser
 
+
 class MyUserFanSerializer(serializers.ModelSerializer):
     sex = serializers.SerializerMethodField()
     provider = serializers.SerializerMethodField()

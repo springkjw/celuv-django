@@ -65,9 +65,10 @@ class Manager(models.Model):
         related_name='manager_user',
         verbose_name='유저'
     )
-    entertainment = models.OneToOneField(
+    entertainment = models.ForeignKey(
         Entertainment,
         on_delete=models.CASCADE,
+        related_name='manager',
         verbose_name='기획사'
     )
     celebrity = models.ManyToManyField(

@@ -1,6 +1,10 @@
 from django import forms
+from django.forms import inlineformset_factory
+from django_select2 import forms as select2_forms
 
 from .models import MyUser
+from apps.celebritys.models import Celebrity
+from apps.entertainments.models import Manager
 
 
 class UserFanForm(forms.ModelForm):
@@ -58,3 +62,25 @@ class UserManagerForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ManagerForm(forms.ModelForm):
+    celebrity = forms.ModelMultipleChoiceField(
+        label="담당 셀럽",
+        queryset=Celebrity.objects.all(),
+        widget=select2_forms.Select2MultipleWidget,
+        required=False,
+    )
+
+    class Meta:
+        model = Manager
+        fields = [
+            'entertainment',
+            'manager_type',
+            'position',
+            'celebrity',
+        ]
+
+
+ManagerFormSet = inlineformset_factory(
+    MyUser, Manager, form=ManagerForm, extra=1, can_delete=False)

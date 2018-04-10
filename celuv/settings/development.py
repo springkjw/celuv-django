@@ -2,6 +2,7 @@ import os
 from django.conf import settings
 
 DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
@@ -9,6 +10,7 @@ DATABASES = {
         'NAME': os.path.join(settings.BASE_DIR, 'db.sqlite3'),
     }
 }
+
 # 정적 파일 설정
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block js %}
+{% block css %}
+{{ form.media.css }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+{% endblock %}
+
+{% block javascript %}
+{{ form.media.js }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
 <script>
     $(function() {
-        $("#id_schedule").datepicker({
+        $("#id_schedule").datetimepicker({
             dateFormat: "yy-mm-dd",
             defaultDate: "+1w",
             changeMonth: true,
             numberOfMonths: 2,
+            controlType: 'select',
+	        oneLine: true,
+	        timeFormat: 'HH:mm',
             onClose: function( selectedDate ) {
-                    $( "#id_schedule" ).datepicker( "option", "minDate", selectedDate );
+                $( "#id_schedule" ).datepicker( "option", "minDate", selectedDate );
             }
         });
     });
@@ -18,9 +28,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="container main">
-        <h4>스케줄 추가</h4>
-        <hr />
+<div class="container main schedule">
+    <h4 class="sub-title">스케줄 등록</h4>
+    <hr />
+    <div class="conatiner">
         <form method="POST">
             {% csrf_token %}
             {% for field in form %}
@@ -29,12 +40,16 @@
                     <div class="col-sm-10">
                         {{ field }}
                     </div>
+                    <div class="col-sm-2">
+                        {{ field.errors }}
+                    </div>
                 </div>
             {% endfor %}
             <div>
-                <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'schedule:month' %}'">취소</button>
-                <button type="submit" class="btn btn-primary">저장</button>
+                <button type="button" class="btn" onclick="window.location.href='{% url 'schedule:month' %}'">취소</button>
+                <button type="submit" class="btn">저장</button>
             </div>
         </form>
+    </div>
     </div>
 {% endblock %}

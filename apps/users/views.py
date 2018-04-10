@@ -3,11 +3,12 @@ from django.views.generic import (
     View
 )
 from django.urls import reverse_lazy
+from django.db import transaction
 from django.contrib.auth.views import LoginView, LogoutView
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView
 
 from .models import MyUser
-from .forms import UserManagerForm, UserFanForm
+from .forms import UserManagerForm, UserFanForm, ManagerFormSet
 from .serializers import MyUserFanSerializer, MyUserManagerSerializer
 
 
@@ -41,15 +42,31 @@ class UserManagerListView(ListView):
     template_name = 'user/manager_list.html'
     queryset = MyUser.objects.manager()
 
+
+class UserManagerCreateView(CreateView):
+    # 소속사 매니저 생성 페이지
+    template_name = 'user/manager_create.html'
+    model = MyUser
+    form_class = UserManagerForm
+    success_url = reverse_lazy('user:manager')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        form = UserManagerForm()
+        if self.request.POST:
+            formset = ManagerFormSet(self.request.POST)
+        else:
+            formset = ManagerFormSet()
         context.update({
-            'form': form
+            'formset': formset
         })
         return context
 
-
-class UserManagerCreateAPIView(CreateAPIView):
-    serializer_class = MyUserManagerSerializer
-    queryset = MyUser.objects.manager()
+    def form_valid(self, form):
+        context = self.get_context_data()
+        manager = context['formset']
+        with transaction.atomic():
+            self.object = form.save()
+            if manager.is_valid():
+                manager.instance = self.object
+                manager.save()
+        return super().form_valid(form)

@@ -6,17 +6,90 @@
 //   margin-bottom: 2rem;
 // }
 
-// .main .add-schedule {
-//   position: fixed;
-//   right: 12rem;
-//   bottom: 3rem;
-//   color: #12012d;
-//   border: 0.05rem solid #12012d;
-//   background: #fff;
-//   padding: 0.8rem 3rem;
-//   border-radius: 1.5rem;
-//   text-decoration: none;
-// }
+.main.schedule {
+    position: relative;
+    .add-schedule {
+        position: absolute;
+        right: 12rem;
+        color: #12012d;
+        border: 0.05rem solid #12012d;
+        background: #fff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 1.5rem;
+        text-decoration: none;
+        img {
+            margin-right: 0.5rem;
+        }
+    }
+    .filter {
+        margin-bottom: 1rem;
+        .calendar-type {
+            color: #757575;
+            font-size: 0.8125rem;
+        }
+    }
+    .calendar {
+        tr > td, th {
+            cursor: pointer;
+            text-align: left;
+            ul {
+                color: #BDBDBD;
+            }
+        }
+        td.today {
+            span {
+                background: #757575;
+                color: white;
+                border-radius: 50%;
+                padding: 0.2rem;
+            }
+        }
+        td.selected {
+            background: rgba(66, 75, 89, 0.15);
+            span {
+                background: #65C9DF;
+                color: white;
+                border-radius: 50%;
+                padding: 0.2rem;
+            }
+            ul {
+                color: #757575;
+            }
+        }
+    }
+    .schedule-list {
+        border: 0.05rem solid #BDBDBD;
+        padding: 1.5rem 0.5rem;
+        h4 {
+            font-size: 0.9375rem;
+            color: #12012d;
+            padding-left: 1rem;
+            padding-bottom: 0.5rem;
+        }
+        .schedule-item {
+            padding: 0 1rem;
+            font-size: 0.8125rem;
+            color: #212121;
+            img {
+                margin-right: 0.5rem;
+            }
+            .time {
+                color: #BDBDBD;   
+            }
+            div:not(:last-child) {
+                margin-bottom: 0.5rem;
+            }
+        }
+        .no-schedule {
+            height: 10rem;
+            font-size: 0.8125rem;
+            color: #757575;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
 
 // .main .celebrity-list {
 //   width: 100%;

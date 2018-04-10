@@ -8,13 +8,13 @@ var exec = require('child_process').exec;
 
 var staticPath = './static';
 
-gulp.task('image', function() {
+gulp.task('image', function () {
   return gulp
     .src(staticPath + '/img/**/*.{gif,jpg,png,svg}')
     .pipe(gulp.dest(staticPath + '/app/img'));
 });
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
   return gulp
     .src(staticPath + '/css/*.scss')
     .pipe(concat('app.css'))
@@ -28,7 +28,7 @@ gulp.task('sass', function() {
     );
 });
 
-gulp.task('javascript', function() {
+gulp.task('javascript', function () {
   return gulp
     .src(staticPath + '/js/*.js')
     .pipe(concat('app.js'))
@@ -41,11 +41,11 @@ gulp.task('javascript', function() {
     );
 });
 
-gulp.task('runserver', function() {
+gulp.task('runserver', function () {
   var proc = exec('python manage.py runserver');
 });
 
-gulp.task('browserSync', ['runserver'], function() {
+gulp.task('browserSync', ['runserver'], function () {
   browserSync.init({
     notify: false,
     port: 8000,
@@ -53,7 +53,7 @@ gulp.task('browserSync', ['runserver'], function() {
   });
 });
 
-gulp.task('watch', ['browserSync', 'sass', 'javascript', 'image'], function() {
+gulp.task('watch', ['browserSync', 'sass', 'javascript', 'image'], function () {
   gulp.watch('./static/css/*.scss', ['sass']);
   gulp.watch('./static/js/*.js', ['javascript']);
   gulp.watch('./apps/**/templates/**/*.html', browserSync.reload);

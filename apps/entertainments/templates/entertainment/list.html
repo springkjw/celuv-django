@@ -64,11 +64,11 @@ function deleteEntertainment(e) {
         <div class="container">
           <p class="card-info">
             <span>셀럽</span>
-            <span>{% celebrity_count object %}</span>
+            <span>{% celebrity_count object %}명</span>
           </p>
           <p class="card-info">
             <span>매니저</span>
-            <span>2222</span>
+            <span>{{ object.manager.all.count }}명</span>
           </p>
         </div>
         <button class="btn" data-toggle="modal" data-target="#updateEntertainmentModal" data-id="{{ object.pk }}">정보수정</button>

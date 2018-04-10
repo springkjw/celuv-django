@@ -1,5 +1,5 @@
 <nav class="main-header navbar navbar-expand-lg">
-    <a class="navbar-brand" href="{% url 'base:home' %}"><span>C</span>LAB</a>
+    <a class="navbar-brand" href="{% url 'base:home' %}"><span>C</span>.LAB</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,7 +25,11 @@
     <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
         <li class="nav-item dropdown">
             <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                SUPER MANAGER
+                {% if user.name %}
+                    {{ user.name }}
+                {% else %}
+                    {{ user.username }}
+                {% endif %}
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="bd-versions">
                 <a class="dropdown-item" href="{% url 'user:logout' %}">로그아웃</a>

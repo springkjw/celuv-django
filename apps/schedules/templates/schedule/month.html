@@ -2,8 +2,18 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="container main">
-    <h2 class="title">2018년 01월 05일</h2>
+<div class="container main schedule">
+    <h2 class="title">
+        {{ date|date:"Y년 m월 d일" }}
+    </h2>
+    <div class="filter">
+        <div class="calendar-type">
+            <a href="{% url 'schedule:month' %}">
+                <img src="{% static 'img/month.svg' %}" width=20 height=20 />
+                월간달력
+            </a>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-8 calendar">
@@ -13,9 +23,41 @@
                 <div class="celebrity-list">
                     <h5>셀럽</h5>
                 </div>
+                <div class="schedule-list">
+                    <h4>{{ date|date:"Y년 m월 d일" }}</h4>
+                    <hr />
+                    {% for object in object_list %}
+                        <div class="schedule-item">
+                            <div class="time">
+                                <img src="{% static 'img/time.svg' %}" width=15 height=15 />
+                                {{ object.schedule|date:"H:m" }}
+                            </div>
+                            <div>
+                                <img src="{% static 'img/calendar.svg' %}" width=15 height=15 />
+                                {{ object.title }}
+                            </div>
+                            <div>
+                                <img src="{% static 'img/people.svg' %}" width=15 height=15 />
+                                {% for celebrity in object.get_celebrity %}
+                                    {{ celebrity }}{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if not forloop.last %}
+                            <hr/>
+                        {% endif %}
+                    {% empty %}
+                        <div class="no-schedule">
+                            등록된 스케줄이 없습니다.
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-    <a href="{% url 'schedule:create' %}" class="add-schedule">스케줄 추가</a>
+    <a href="{% url 'schedule:create' %}" class="add-schedule">
+        <img src="{% static 'img/add_schedule.svg' %}" width=20 height=20 />
+        스케줄 추가
+    </a>
 </div>
 {% endblock %}

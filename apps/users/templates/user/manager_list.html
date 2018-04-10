@@ -1,17 +1,5 @@
 {% extends 'base.html' %}
 
-{% block javascript %}
-<script>
-    $(function() {
-        $('#createManager').ajaxForm({
-            success: function(res) {
-                location.reload();
-            }
-        })
-    })
-</script>
-{% endblock %}
-
 {% block content %}
 <div class="container main user">
     <h2 class="title">소속사 매니저</h2>
@@ -76,44 +64,16 @@
                       <a>거절</a>
                     </td>
                 </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="10">등록된 소속사 매니저가 없습니다.</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
     <div class="">
-        <button class="btn" data-toggle="modal" data-target="#createManagerModal">소속사 관리자 추가</button>
-    </div>
-</div>
-{% endblock %}
-
-{% block modal %}
-<div class="modal fade" id="createManagerModal" tabindex="-1" role="dialog" aria-labelledby="createManagerModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form method="POST" action="{% url 'user:manager_create' %}" id="createManager">
-            {% csrf_token %}
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">관리자 신규 정보</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                    {% for field in form %}
-                        <div class="form-group row">
-                            <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
-                            <div class="input col-sm-10">
-                            {{ field }}
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal">취소</button>
-                    <button type="submit" class="btn">등록</button>
-                </div>
-            </div>
-        </form>
+        <button class="btn" onclick="window.location.href='{% url 'user:manager_create' %}'">소속사 관리자 추가</button>
     </div>
 </div>
 {% endblock %}

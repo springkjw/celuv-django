@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+{{ formset.media.css }}
+{% endblock %}
+
+{% block javascript %}
+{{ formset.media.js }}
+{% endblock %}
+
+{% block content %}
+<div class="container main user">
+    <h4 class="sub-title">매니저 추가</h4>
+    <hr />
+    <div class="container">
+        <form class="user-form" method="POST">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            {% for field in formset.0 %}
+                {% if field.name == 'id' or field.name == 'user' %}
+                    {{ field }}
+                {% else %}
+                    <div class="form-group row">
+                        <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
+                        <div class="col-sm-10">
+                            {{ field }}
+                        </div>
+                        <div class="col-sm-2">
+                            {{ field.errors }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% for field in form %}
+                <div class="form-group row">
+                    <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
+                    <div class="col-sm-10">
+                        {{ field }}
+                    </div>
+                    <div class="col-sm-2">
+                        {{ field.errors }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div>
+                <button type="button" class="btn" onclick="window.location.href='{% url 'user:manager'%}'">취소</button>
+                <button type="submit" class="btn">저장</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
