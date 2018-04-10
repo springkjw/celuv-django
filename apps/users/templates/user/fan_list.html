@@ -12,13 +12,13 @@ $(function() {
       success: function(res) {
         $.each(res, function( key, value) {
           modal.find('input[name=' + key + ']').val(value);
-        }) 
+        })
       }
     })
   })
   $('#updateUserModal').on('hide.bs.modal', function (e) {
     var modal = $(this);
-    moda.find(input).each(function() {
+    modal.find('input').each(function() {
       $(this).val('');
     })
   })
@@ -47,7 +47,7 @@ function deactiveUser(e, user_id, is_active) {
 <div class="container main user">
     <h2 class="title">팬 계정</h2>
     <h4 class="sub-title">
-      <a href="{% url 'user:manager' %}">관리자 계정</a>
+      <a href="{% url 'user:manager' %}">소속사 매니저</a>
     </h4>
     <div class="search-area">
       <input type="search" placeholder="검색어를 입력하세요" name='search' />
@@ -90,9 +90,21 @@ function deactiveUser(e, user_id, is_active) {
                 </td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">
                 <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.username }}</td>
                 <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_provider_display }}</td>
-                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.name }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">
+                  {% if object.name %}
+                    {{ object.name }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
                 <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.date_joined|date:"Y/m/d h:m" }}</td>
-                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_sex_display }}</td>
+                <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">
+                  {% if object.sex %}
+                    {{ object.get_sex_display }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
                 <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_report_count }}</td>
                 <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_feedback_count }}</td>
                 <td data-toggle="modal" data-target="#updateUserModal" data-id="{{ object.pk }}">{{ object.get_celeb_count }}</td>

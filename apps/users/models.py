@@ -30,12 +30,10 @@ class MyUserManager(BaseUserManager):
         kwargs.setdefault('is_manager', True)
         return self._create_user(username, password, **kwargs)
 
-
     def create_superuser(self, username, password, **kwargs):
         kwargs.setdefault('is_admin', True)
         return self._create_user(username, password, **kwargs)
 
-    
     def user(self):
         return self.get_queryset().user()
 
@@ -48,6 +46,7 @@ class MyUserManager(BaseUserManager):
 
 def user_profile_image(instance, filename):
     return "%s/%s" % (instance.id, filename)
+
 
 class MyUser(AbstractBaseUser):
     # 유저 모델
@@ -78,7 +77,7 @@ class MyUser(AbstractBaseUser):
         null=True,
         blank=True,
         verbose_name='소셜로그인 키',
-        help_text='소셜로그인인 경우만'        
+        help_text='소셜로그인인 경우만'
     )
     name = models.CharField(
         max_length=20,
@@ -136,7 +135,7 @@ class MyUser(AbstractBaseUser):
 
     objects = MyUserManager()
 
-    USERNAME_FIELD = 'username'    
+    USERNAME_FIELD = 'username'
 
     class Meta:
         db_table = 'user'

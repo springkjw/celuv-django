@@ -1,10 +1,23 @@
-from django.views.generic import ListView, CreateView, UpdateView, View
+from django.views.generic import (
+    ListView, CreateView, UpdateView,
+    View
+)
 from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
 from rest_framework.generics import RetrieveUpdateAPIView, CreateAPIView
 
 from .models import MyUser
 from .forms import UserManagerForm, UserFanForm
 from .serializers import MyUserFanSerializer, MyUserManagerSerializer
+
+
+class UserLoginView(LoginView):
+    template_name = 'user/login.html'
+    success_url = reverse_lazy('base:home')
+
+
+class UserLogoutView(LogoutView):
+    pass
 
 
 class UserFanListView(ListView):

@@ -1,0 +1,24 @@
+{% extends 'index.html' %}
+
+{% block main %}
+<div class="login-main">
+  <div class="container col-md-4 col-md-offset-4">
+    <h4><span>C</span>.LAB 로그인</h4>
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label>{{ field.label }}</label>
+          {{ field }}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn">로그인</button>
+    </form>
+    {% if form.errors %}
+      {% for key, value in form.errors.items %}
+        <span class="error">{{ value }}</span>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

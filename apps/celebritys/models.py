@@ -1,9 +1,12 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse_lazy
+
+from apps.entertainments.models import Entertainment
 
 
-def celebrity_profile_image(instance, filename):
-    return '%s/%s' % (instance.pk, filename)
+def celebrity_image(instance, filename):
+    return 'celebrity/%s/%s' % (instance.pk, filename)
 
 
 class Celebrity(models.Model):
@@ -23,7 +26,7 @@ class Celebrity(models.Model):
     image = models.ImageField(
         null=True,
         blank=True,
-        upload_to=celebrity_profile_image,
+        upload_to=celebrity_image,
         verbose_name='연예인 사진'
     )
     celeb_type = models.CharField(
@@ -31,6 +34,11 @@ class Celebrity(models.Model):
         default='s',
         choices=CELEB_TYPE,
         verbose_name='유형'
+    )
+    entertainment = models.ManyToManyField(
+        Entertainment,
+        blank=True,
+        verbose_name='소속사'
     )
     debut = models.DateField(
         null=True,
@@ -69,3 +77,7 @@ class Celebrity(models.Model):
         if not self.image:
             return settings.STATIC_URL + '/img/empty_profile.svg'
         return self.image.url
+
+    @property
+    def get_update_url(self):
+        return reverse_lazy('celebrity:update', kwargs={'pk': self.pk})

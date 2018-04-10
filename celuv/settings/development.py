@@ -9,17 +9,12 @@ DATABASES = {
         'NAME': os.path.join(settings.BASE_DIR, 'db.sqlite3'),
     }
 }
-
+# 정적 파일 설정
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(settings.BASE_DIR, 'static'),
+    os.path.join(settings.BASE_DIR, 'static', 'app'),
 ]
 STATIC_ROOT = os.path.join(settings.BASE_DIR, 'assets')
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
+# 미디어 파일 설정
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(settings.BASE_DIR, 'media')

@@ -2,7 +2,11 @@
 {% load staticfiles %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'celebrity.css' %}" >
+{{ form.media.css }}
+{% endblock %}
+
+{% block javascript %}
+{{ form.media.js }}
 {% endblock %}
 
 {% block content %}
@@ -10,7 +14,7 @@
   <h4 class="sub-title">셀럽 추가</h4>
   <hr />
   <div class="container">
-    <form class="celebrity-form" method="POST">
+    <form class="celebrity-form" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {% for field in form %}
         <div class="form-group row">

@@ -9,12 +9,12 @@
             }
         })
     })
-</script>    
+</script>
 {% endblock %}
 
 {% block content %}
 <div class="container main user">
-    <h2 class="title">관리자 계정</h2>
+    <h2 class="title">소속사 매니저</h2>
     <h4 class="sub-title">
         <a href="{% url 'user:fan' %}">팬 계정</a>
     </h4>
@@ -29,19 +29,52 @@
                     <th scope="col">권한</th>
                     <th scope="col">아이디</th>
                     <th scope="col">이메일</th>
+                    <th scope="col">소속사</th>
                     <th scope="col">관리자명</th>
-                    <th scope="col">마지막 접속 일시</th>
+                    <th scope="col">직책</th>
+                    <th scope="col">연락처</th>
+                    <th scope="col">담당 셀럽</th>
+                    <th scope="col">가입 승인</th>
                 </tr>
             </thead>
             <tbody>
                 {% for object in object_list %}
                 <tr>
                     <td>{{ object.pk }}</td>
-                    <td>{{ object }}</td>
+                    <td>
+                      {% if object.manager_user.manager_type == 'n' %}
+                        일반
+                      {% elif object.manager_user.manager_type == 's' %}
+                        관리자
+                      {% else %}
+                        -
+                      {% endif %}
+                    </td>
                     <td>{{ object.username }}</td>
                     <td>{{ object.email }}</td>
-                    <td>{{ object.name }}</td>
-                    <td>{{ object.last_login|date:"Y/m/d h:m" }}</td>
+                    <td>{{ object.manager_user.entertainment }}</td>
+                    <td>
+                      {{ object.name }}
+                    </td>
+                    <td>
+                      {% if object.manager_user.position %}
+                        {{ object.manager_user.position }}
+                      {% else %}
+                        -
+                      {% endif %}
+                    </td>
+                    <td>
+                      {{ object.phone }}
+                    </td>
+                    <td>
+                      {% for celebrity in object.manager_user.celebrity.all %}
+                        {{ celebrity }}{% if not forloop.last %},{% endif %}
+                      {% endfor %}
+                    </td>
+                    <td>
+                      <a>승인</a>
+                      <a>거절</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

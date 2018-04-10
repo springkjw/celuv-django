@@ -1,5 +1,6 @@
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
+from django.db.models import Count
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 
 from .models import Entertainment

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load entertainment %}
 
 {% block javascript %}
 <script>
@@ -49,6 +50,11 @@ function deleteEntertainment(e) {
   <h3 class="title">기획사 관리</h3>
   <div class="title-button-group">
     <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#createEntertainmentModal">기획사 추가</button>
+    <div>
+      <form method="GET" class="search-form">
+        <input placeholder="검색어를 입력하세요" name="search" />
+      </form>
+    </div>
   </div>
   <div class="entertainment-list">
     {% for object in object_list %}
@@ -58,7 +64,7 @@ function deleteEntertainment(e) {
         <div class="container">
           <p class="card-info">
             <span>셀럽</span>
-            <span>2222</span>
+            <span>{% celebrity_count object %}</span>
           </p>
           <p class="card-info">
             <span>매니저</span>
@@ -67,6 +73,8 @@ function deleteEntertainment(e) {
         </div>
         <button class="btn" data-toggle="modal" data-target="#updateEntertainmentModal" data-id="{{ object.pk }}">정보수정</button>
       </div>
+    {% empty %}
+      <div class="no-list">등록된 기획사가 없습니다.</div>
     {% endfor %}
   </div>
 </div>

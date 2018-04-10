@@ -44,7 +44,8 @@ class UserManagerForm(forms.ModelForm):
             field = self.fields.get(field_name)
             if field:
                 if type(field.widget) in (forms.TextInput, forms.EmailInput):
-                    field.widget = forms.TextInput(attrs={'placeholder': field.label})
+                    field.widget = forms.TextInput(
+                        attrs={'placeholder': field.label})
 
     def clean(self):
         if self.cleaned_data['password'] != self.cleaned_data['password1']:
@@ -57,4 +58,3 @@ class UserManagerForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-

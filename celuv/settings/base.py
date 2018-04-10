@@ -15,9 +15,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 THIRD_PARTY_APPS = [
-    'pipeline',
     'storages',
     'rest_framework',
+    'django_select2',
 ]
 PROJECT_APPS = [
     'apps.bases',
@@ -37,9 +37,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'celuv.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'celuv.urls'
+LOGIN_URL = '/user/login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/user/login'
+LOGIN_EXEMPT_URLS = [
+    '/user/login',
+]
 
 TEMPLATES = [
     {
@@ -76,38 +83,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ko-kr'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
-
-PIPELINE = {
-    'COMPILERS': (
-        'pipeline.compilers.sass.SASSCompiler',
-        'pipeline.compilers.es6.ES6Compiler',
-    ),
-    'STYLESHEETS': {
-        'app': {
-            'source_filenames': (
-                'css/*.scss',
-            ),
-            'output_filename': 'css/app.css',
-        },
-    },
-    'JAVASCRIPT': {
-        'app': {
-            'source_filenames': (
-                'js/*.js',
-            ),
-            'output_filename': 'js/app.js',
-        }
-    }
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (

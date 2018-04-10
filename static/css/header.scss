@@ -1,16 +1,22 @@
 .main-header {
   background: #12012d !important;
   color: #fff;
-}
 
-.main-header .navbar-brand {
-  color: #fff;
-}
-
-.main-header .navbar-brand > span {
-  color: #ff005a;
-}
-
-.main-header .nav-item > a {
-  color: #fff;
+  .navbar-brand {
+    color: #fff;
+  }
+  .navbar-brand > span {
+    color: #ff005a;
+  }
+  .nav-item > a {
+    color: #fff;
+    font-size: 0.85rem;
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+  .container {
+    flex: display;
+    flex-direction: row;
+    justify-content: center;
+  }
 }

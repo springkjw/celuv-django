@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Celebrity
+
+
+class CelebrityAdmin(admin.ModelAdmin):
+    list_display = ['__str__']
+
+    autocomplete_fields = ['entertainment']
+
+
+admin.site.register(Celebrity, CelebrityAdmin)

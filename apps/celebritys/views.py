@@ -1,7 +1,8 @@
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
 from .models import Celebrity
+from .forms import CelebrityForm
 
 
 class CelebrityListView(ListView):
@@ -12,12 +13,12 @@ class CelebrityListView(ListView):
 class CelebrityCreateView(CreateView):
     template_name = 'celebrity/create.html'
     queryset = Celebrity.objects.all()
+    form_class = CelebrityForm
     success_url = reverse_lazy('celebrity:list')
-    fields = (
-        'name',
-        'celeb_type',
-        'real_name',
-        'debut',
-        'birth',
-        'sex',
-    )
+
+
+class CelebrityUpdateView(UpdateView):
+    template_name = 'celebrity/create.html'
+    queryset = Celebrity.objects.all()
+    form_class = CelebrityForm
+    success_url = reverse_lazy('celebrity:list')

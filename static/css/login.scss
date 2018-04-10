@@ -1,0 +1,40 @@
+.login-main {
+  background: #12012d;
+  height: 100vh;
+  width: 100vw;
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h4 {
+      color: white;
+      margin-bottom: 2rem;
+      span {
+        color: #ff005a;
+      }
+    }
+    .error {
+      color: #ff005a;
+      font-size: 0.75rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 1rem;
+      .form-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      label {
+        color: white;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

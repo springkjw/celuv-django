@@ -39,6 +39,18 @@
       align-items: center;
       margin-right: 0.5rem;
       border-bottom: 0.3rem solid #bdbdbd;
+      .entertainment-tags {
+        width: 100%;
+        margin-top: -0.5rem;
+        margin-left: -0.5rem;
+        .tag {
+          font-size: 0.65rem;
+          padding: 0.3rem 0.5rem;
+          color: #bdbdbd;
+          border: 0.05rem solid #bdbdbd;
+          border-radius: 1rem;
+        }
+      }
       .profile {
         width: 4rem;
         height: 4rem;
