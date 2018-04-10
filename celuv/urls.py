@@ -10,6 +10,7 @@ urlpatterns = [
     path('entertainment/', include('apps.entertainments.urls',
                                    namespace='entertainment')),
     path('schedule/', include('apps.schedules.urls', namespace='schedule')),
+    path('api/v1/', include('api.urls', namespace='api')),
     path('select2/', include('django_select2.urls')),
     path('admin/', admin.site.urls),
 ]

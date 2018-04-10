@@ -1,7 +1,7 @@
 import os
 from .base import *  # NOQA
 
-if 'RDS_DB_NAME' in os.environ:
+if os.environ.get('PROJECT_ENV') == 'production':
     from .production import *  # NOQA
 else:
     from .development import *  # NOQA

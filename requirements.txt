@@ -39,3 +39,4 @@ wcwidth==0.1.7
 websocket-client==0.47.0
 wrapt==1.10.11
 django-select2==6.0.2
+django-push-notifications==1.6.0

@@ -18,6 +18,7 @@ THIRD_PARTY_APPS = [
     'storages',
     'rest_framework',
     'django_select2',
+    'push_notifications',
 ]
 PROJECT_APPS = [
     'apps.bases',
@@ -105,4 +106,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DATETIME_FORMAT': '%Y/%m/%d %H:%M'
+}
+
+PUSH_NOTIFICATIONS_SETTINGS = {
+    "CONFIG": "push_notifications.conf.AppConfig",
+    "APPLICATIONS": {
+        "xyz.celuv.celuv": {
+            "PLATFORM": "APNS",
+            "CERTIFICATE": os.path.join(BASE_DIR, 'apns.pem'),
+            "TOPIC": "xyz.celuv.celuv",
+            "USE_SANDBOX": False,
+        },
+    },
 }
