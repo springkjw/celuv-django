@@ -78,7 +78,7 @@ class MyUser(AbstractBaseUser):
         verbose_name='이메일'
     )
     provider = models.CharField(
-        max_length=1,
+        max_length=10,
         choices=PROVIDER,
         default='c',
         verbose_name='가입경로'
