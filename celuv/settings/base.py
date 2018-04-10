@@ -1,4 +1,7 @@
 import os
+import datetime
+
+from corsheaders.defaults import default_headers
 
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -39,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'celuv.middleware.LoginRequiredMiddleware',
+    'celuv.middleware.ResponseFormattingMiddleware',
 ]
 
 ROOT_URLCONF = 'celuv.urls'
@@ -46,6 +50,7 @@ LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/user/login'
 LOGIN_EXEMPT_URLS = [
+    r'^api/',
     '/user/login',
 ]
 
@@ -102,10 +107,18 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
     'DATETIME_FORMAT': '%Y/%m/%d %H:%M'
+}
+
+JWT_AUTH = {
+    'JWT_AUTH_HEADER_PREFIX': 'CELUV',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=365),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'celuv.utils.jwt_response_payload_handler'
 }
 
 PUSH_NOTIFICATIONS_SETTINGS = {
@@ -119,3 +132,23 @@ PUSH_NOTIFICATIONS_SETTINGS = {
         },
     },
 }
+
+
+# 소셜 플랫폼 설정
+PROVIDER = {
+    'facebook': {
+        'API_URL': 'https://graph.facebook.com/',
+        'API_VERSION': 'v2.4'
+    },
+    'google': {
+        'API_URL': 'https://www.googleapis.com/oauth2/v1/userinfo'
+    }
+}
+
+# API CORS 설정
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = default_headers + (
+    'csrftoken',
+    'X_CSRF_TOKEN',
+    'Cache-Control'
+)

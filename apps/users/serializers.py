@@ -11,10 +11,9 @@ class MyUserFanSerializer(serializers.ModelSerializer):
         model = MyUser
         fields = [
             'pk',
-            'username',
+            'email',
             'image',
             'name',
-            'email',
             'sex',
             'date_joined',
             'provider',
@@ -33,9 +32,8 @@ class MyUserManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
         fields = [
-            'username',
-            'name',
             'email',
+            'name',
             'phone',
             'password',
         ]

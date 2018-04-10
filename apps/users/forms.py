@@ -11,7 +11,6 @@ class UserFanForm(forms.ModelForm):
     class Meta:
         model = MyUser
         fields = [
-            'username',
             'email',
             'phone'
         ]
@@ -34,7 +33,6 @@ class UserManagerForm(forms.ModelForm):
     class Meta:
         model = MyUser
         fields = [
-            'username',
             'email',
             'password',
             'password1',

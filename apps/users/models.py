@@ -1,4 +1,8 @@
+import uuid
+import json
+
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
@@ -17,22 +21,22 @@ class MyUserManager(BaseUserManager):
     def get_queryset(self):
         return MyUserQuerySet(self.model, using=self._db)
 
-    def _create_user(self, username, password, **kwargs):
-        user = self.model(username=username)
+    def _create_user(self, email, password, **kwargs):
+        user = self.model(email=self.normalize_email(email))
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_user(self, username, password, **kwargs):
-        return self._create_user(username, password, **kwargs)
+    def create_user(self, email, password, **kwargs):
+        return self._create_user(email, password, **kwargs)
 
-    def create_manager(self, username, password, **kwargs):
+    def create_manager(self, email, password, **kwargs):
         kwargs.setdefault('is_manager', True)
-        return self._create_user(username, password, **kwargs)
+        return self._create_user(email, password, **kwargs)
 
-    def create_superuser(self, username, password, **kwargs):
+    def create_superuser(self, email, password, **kwargs):
         kwargs.setdefault('is_admin', True)
-        return self._create_user(username, password, **kwargs)
+        return self._create_user(email, password, **kwargs)
 
     def user(self):
         return self.get_queryset().user()
@@ -55,16 +59,23 @@ class MyUser(AbstractBaseUser):
         ('m', '남자'),
     )
     PROVIDER = (
-        ('c', '셀럽'),
-        ('f', '페이스북'),
-        ('k', '카카오'),
-        ('g', '구글'),
+        ('celuv', '셀럽'),
+        ('facebook', '페이스북'),
+        ('kakao', '카카오'),
+        ('google', '구글'),
     )
 
-    username = models.CharField(
-        max_length=20,
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False,
+        auto_created=True,
         unique=True,
-        verbose_name='아이디'
+        verbose_name="pk"
+    )
+    email = models.EmailField(
+        unique=True,
+        verbose_name='이메일'
     )
     provider = models.CharField(
         max_length=1,
@@ -72,7 +83,7 @@ class MyUser(AbstractBaseUser):
         default='c',
         verbose_name='가입경로'
     )
-    oauth_key = models.CharField(
+    uid = models.CharField(
         max_length=255,
         null=True,
         blank=True,
@@ -90,11 +101,6 @@ class MyUser(AbstractBaseUser):
         null=True,
         blank=True,
         verbose_name='프로필 이미지'
-    )
-    email = models.EmailField(
-        null=True,
-        blank=True,
-        verbose_name='이메일'
     )
     sex = models.CharField(
         max_length=1,
@@ -135,7 +141,7 @@ class MyUser(AbstractBaseUser):
 
     objects = MyUserManager()
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
 
     class Meta:
         db_table = 'user'
@@ -143,7 +149,7 @@ class MyUser(AbstractBaseUser):
         verbose_name_plural = '유저들'
 
     def __str__(self):
-        return self.username
+        return self.email
 
     def has_perm(self, perm, obj=None):
         return True
