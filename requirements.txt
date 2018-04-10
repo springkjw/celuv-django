@@ -38,4 +38,5 @@ wrapt==1.10.11
 django-select2==6.0.2
 django-push-notifications==1.6.0
 requests==2.18.4
-
+psycopg2==2.7.4
+psycopg2-binary==2.7.4
