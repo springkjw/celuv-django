@@ -9,6 +9,8 @@ class ScheduleSerializer(serializers.ModelSerializer):
     start = serializers.SerializerMethodField()
     content = serializers.SerializerMethodField()
     celeb = CelebritySerializer(many=True, read_only=True, source='celebrity')
+    schedule_type = serializers.SerializerMethodField()
+    is_notification = serializers.SerializerMethodField()
 
     class Meta:
         model = Schedule
@@ -17,6 +19,8 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'start',
             'content',
             'celeb',
+            'schedule_type',
+            'is_notification',
         )
 
     def get_start(self, obj):
@@ -24,3 +28,12 @@ class ScheduleSerializer(serializers.ModelSerializer):
 
     def get_content(self, obj):
         return obj.title
+
+    def get_schedule_type(self, obj):
+        schedule_type = obj.schedulecategory_set.all()
+        if not schedule_type.exists():
+            return None
+        return schedule_type.first().first_category
+
+    def get_is_notification(self, obj):
+        return False
