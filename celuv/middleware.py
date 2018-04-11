@@ -47,6 +47,8 @@ class ResponseFormattingMiddleware(MiddlewareMixin):
                         response_format[key] = data.pop(key)
                 except KeyError:
                     response_format.update({'result': data})
+                except TypeError:
+                    response_format.update({'result': data})
                 finally:
                     if is_client_error(response.status_code):
                         response_format[
