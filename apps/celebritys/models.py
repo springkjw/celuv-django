@@ -63,6 +63,11 @@ class Celebrity(models.Model):
         choices=SEX_TYPE,
         verbose_name='성별'
     )
+    like = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        verbose_name='찜하기'
+    )
 
     class Meta:
         db_table = 'celebrity'
