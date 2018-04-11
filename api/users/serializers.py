@@ -7,14 +7,43 @@ from apps.users.models import MyUser
 
 class UserSerializer(serializers.ModelSerializer):
     # 유저 직렬화
+    profile_image = serializers.SerializerMethodField()
+    is_staff = serializers.SerializerMethodField()
+    is_social = serializers.SerializerMethodField()
+    personal_info = serializers.SerializerMethodField()
+
     class Meta:
         model = MyUser
         fields = [
             'uuid',
             'email',
-            'name',
-            'image',
+            'is_staff',
+            'is_social',
+            'is_active',
+            'personal_info',
+            'profile_image',
         ]
+
+    def get_profile_image(self, obj):
+        if obj.image:
+            return obj.image
+        return None
+
+    def get_is_staff(self, obj):
+        return obj.is_staff
+
+    def get_is_social(self, obj):
+        if obj.provider != 'c':
+            return True
+        return False
+
+    def get_personal_info(self, obj):
+        return {
+            'name': obj.name,
+            'sex': obj.sex,
+            'birth': obj.birth,
+        }
+
 
 
 class UserSocialSerializer(serializers.ModelSerializer):
