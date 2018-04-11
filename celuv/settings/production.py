@@ -38,5 +38,4 @@ MEDIA_ROOT = os.path.join(settings.BASE_DIR, 'media')
 # Sentry 설정
 RAVEN_CONFIG = {
     'dsn': 'https://d2d678ebbc2f4d3ab28a823f8741d929:7350785c77b54a44bb0a19a778272535@sentry.io/1187377',
-    'release': raven.fetch_git_sha(os.path.abspath(settings.BASE_DIR)),
 }
