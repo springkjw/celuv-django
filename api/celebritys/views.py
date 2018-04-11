@@ -1,8 +1,9 @@
 from django.db.models import Count
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, GenericAPIView
+from rest_framework.response import Response
 
 from apps.celebritys.models import Celebrity
-from .serializers import CelebritySerializer, CelebrityListSerializer
+from .serializers import CelebritySerializer, CelebrityListSerializer, CelebrityLikeSerializer
 
 
 class CelebrityListAPIView(ListAPIView):
@@ -15,19 +16,12 @@ class CelebrityListAPIView(ListAPIView):
         return name
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().annotate(like_count=Count('like'))\
+            .order_by('-like_count')
 
         if self.get_query_parms():
             queryset = queryset.filter(name__icontains=self.get_query_parms())
-
-        queryset_is_like = queryset.filter(like=self.request.user)\
-            .annotate(like_count=Count('like'))\
-            .order_by('-like_count')
-        queryset_is_not_like = queryset.exclude(like=self.request.user)\
-            .annotate(like_count=Count('like'))\
-            .order_by('-like_count')
-
-        return queryset_is_like.union(queryset_is_not_like)
+        return queryset
 
 
 class CelebrityLikeListAPIView(ListAPIView):
@@ -37,3 +31,17 @@ class CelebrityLikeListAPIView(ListAPIView):
     def get_queryset(self):
         queryset = self.request.user.celebrity_set.all()
         return queryset
+
+
+class CelebrityLikeAPIView(GenericAPIView):
+    # 좋아요 API
+    serializer_class = CelebrityLikeSerializer
+    queryset = Celebrity.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(
+            data=request.data, instance=self.get_object())
+        serializer.is_valid()
+        serializer.save()
+
+        return Response()
