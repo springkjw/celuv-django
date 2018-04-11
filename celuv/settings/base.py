@@ -22,6 +22,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_select2',
     'push_notifications',
+    'raven.contrib.django.raven_compat',
 ]
 PROJECT_APPS = [
     'apps.bases',
