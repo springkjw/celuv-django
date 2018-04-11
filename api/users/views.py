@@ -5,7 +5,7 @@ from rest_framework_jwt.settings import api_settings
 
 from .serializers import UserSocialSerializer
 
-from rest_framework_jwt.views import jwt_response_payload_handler
+from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
 
 
 class UserSocialLoginView(GenericAPIView):
@@ -32,3 +32,20 @@ class UserSocialLoginView(GenericAPIView):
         response = Response(response_data)
 
         return response
+
+
+class UserLoginView(ObtainJSONWebToken):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.object.get('user') or request.user
+            token = serializer.object.get('token')
+            response_data = jwt_response_payload_handler(token, user, request)
+            response = Response(response_data)
+
+            return response
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
