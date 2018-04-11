@@ -22,7 +22,10 @@ class MyUserManager(BaseUserManager):
         return MyUserQuerySet(self.model, using=self._db)
 
     def _create_user(self, email, password, **kwargs):
-        user = self.model(email=self.normalize_email(email))
+        user = self.model(
+            email=self.normalize_email(email),
+            **kwargs
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user

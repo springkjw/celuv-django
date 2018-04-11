@@ -28,6 +28,23 @@ class Schedule(models.Model):
 
 
 class ScheduleCategory(models.Model):
+    SCHEDULE_RADIO = 'r'
+    SCHEDULE_TV = 't'
+    SCHEDULE_CONSERT = 'c'
+    SCHEDULE_ALBUM = 'a'
+    SCHEDULE_PHOTO = 'p'
+    SCHEDULE_FAN = 'f'
+    SCHEDULE_ETC = 'e'
+    SCHEDULE_TYPE = (
+        (SCHEDULE_RADIO, '라디오 스케줄'),
+        (SCHEDULE_TV, '티비 스케줄'),
+        (SCHEDULE_CONSERT, '공연행사'),
+        (SCHEDULE_ALBUM, '앨범발매'),
+        (SCHEDULE_PHOTO, '촬영'),
+        (SCHEDULE_FAN, '팬미팅'),
+        (SCHEDULE_ETC, '기타'),
+    )
+
     schedule = models.ForeignKey(
         Schedule,
         on_delete=models.CASCADE,
@@ -35,14 +52,20 @@ class ScheduleCategory(models.Model):
     )
     first_category = models.CharField(
         max_length=5,
+        choices=SCHEDULE_TYPE,
+        default=SCHEDULE_TV,
         verbose_name='상위 카테고리'
     )
     second_category = models.CharField(
         max_length=5,
+        null=True,
+        blank=True,
         verbose_name='하위 카테고리'
     )
     content = models.CharField(
         max_length=100,
+        null=True,
+        blank=True,
         verbose_name='부가정보'
     )
 
