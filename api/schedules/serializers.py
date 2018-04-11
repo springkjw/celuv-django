@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import serializers
 
 from apps.schedules.models import Schedule
@@ -24,7 +25,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         )
 
     def get_start(self, obj):
-        return obj.schedule
+        return datetime.datetime.strftime(obj.schedule, '%Y-%m-%d %H:%m')
 
     def get_content(self, obj):
         return obj.title
