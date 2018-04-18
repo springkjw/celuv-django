@@ -42,6 +42,11 @@
                                     {{ celebrity }}{% if not forloop.last %},{% endif %}
                                 {% endfor %}
                             </div>
+                            <div class="">
+                                <a href="{{ object.get_absolute_url }}">
+                                    <img src="{% static 'img/schedule-add.svg' %}" width=15 height=15 style="cursor: pointer;"/>
+                                </a>
+                            </div>
                         </div>
                         {% if not forloop.last %}
                             <hr/>

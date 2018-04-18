@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+{{ form.media.css }}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+{% endblock %}
+
+{% block javascript %}
+{{ form.media.js }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+<script>
+    $(function() {
+        $("#id_schedule").datetimepicker({
+            dateFormat: "yy-mm-dd",
+            defaultDate: "+1w",
+            changeMonth: true,
+            numberOfMonths: 2,
+            controlType: 'select',
+	        oneLine: true,
+	        timeFormat: 'HH:mm',
+            onClose: function( selectedDate ) {
+                $( "#id_schedule" ).datepicker( "option", "minDate", selectedDate );
+            }
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container main schedule">
+    <h4 class="sub-title">스케줄 수정</h4>
+    <hr />
+    <div class="conatiner">
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group row">
+                    <label for="{{ field.id }}" class="col-sm-2 col-form-label">{{ field.label }}</label>
+                    <div class="col-sm-10">
+                        {{ field }}
+                    </div>
+                    <div class="col-sm-2">
+                        {{ field.errors }}
+                    </div>
+                </div>
+            {% endfor %}
+            <div>
+                <button type="button" class="btn" onclick="window.location.href='{{ object.get_delete_url }}'">삭제</button>
+                <button type="button" class="btn" onclick="window.location.href='{% url 'schedule:month' %}'">취소</button>
+                <button type="submit" class="btn">저장</button>
+            </div>
+        </form>
+    </div>
+    </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 import datetime
 import calendar
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.utils.safestring import mark_safe
 from django.utils import timezone
 from django.urls import reverse_lazy
@@ -60,3 +60,18 @@ class ScheduleCreateView(CreateView):
     queryset = Schedule.objects.all()
     form_class = ScheduleForm
     success_url = reverse_lazy('schedule:month')
+
+
+class ScheduleDetailView(UpdateView):
+    template_name = 'schedule/update.html'
+    model = Schedule
+    form_class = ScheduleForm
+    success_url = reverse_lazy('schedule:month')
+
+
+class ScheduleDeleteView(DeleteView):
+    model = Schedule
+    success_url = reverse_lazy('schedule:month')
+
+    def get(self, *args, **kwargs):
+        return self.post(*args, **kwargs)

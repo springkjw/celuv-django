@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 from apps.celebritys.models import Celebrity
 
 
@@ -25,6 +26,14 @@ class Schedule(models.Model):
 
     def get_celebrity(self):
         return [celebrity.name for celebrity in self.celebrity.all()]
+
+    @property
+    def get_absolute_url(self):
+        return reverse_lazy('schedule:detail', kwargs={'pk': self.pk})
+
+    @property
+    def get_delete_url(self):
+        return reverse_lazy('schedule:delete', kwargs={'pk': self.pk})
 
 
 class ScheduleCategory(models.Model):
