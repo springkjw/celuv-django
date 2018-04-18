@@ -1,9 +1,11 @@
+from django.contrib.auth import get_user_model
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 from rest_framework_jwt.settings import api_settings
 
-from .serializers import UserSocialSerializer
+from .serializers import UserSocialSerializer, UserSerializer
 
 from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
 
@@ -49,3 +51,10 @@ class UserLoginView(ObtainJSONWebToken):
             return response
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserModelViewSet(ModelViewSet):
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    queryset = get_user_model().objects.all()
+    lookup_field = 'uuid'

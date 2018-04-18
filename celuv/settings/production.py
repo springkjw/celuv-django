@@ -31,5 +31,5 @@ MEDIA_URL = "https://%s/media/" % AWS_S3_CUSTOM_DOMAIN
 
 # Sentry 설정
 RAVEN_CONFIG = {
-    'dsn': 'https://d2d678ebbc2f4d3ab28a823f8741d929:7350785c77b54a44bb0a19a778272535@sentry.io/1187377',
+    'dsn': 'https://d6a09e8ec10c4af082e92a5224205c5a:e956906083884767bd1ff79d81dc61e8@sentry.io/1191144',
 }
