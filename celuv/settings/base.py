@@ -156,3 +156,11 @@ CORS_ALLOW_HEADERS = default_headers + (
     'X_CSRF_TOKEN',
     'Cache-Control'
 )
+
+
+# AWS S3 설정
+AWS_REGION = 'ap-northeast-2'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_HOST = 's3.%s.amazonaws.com' % AWS_REGION
+AWS_S3_ACCESS_KEY_ID = 'AKIAIAMY5ESYHE5QC4NQ'
+AWS_S3_SECRET_ACCESS_KEY = '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'
