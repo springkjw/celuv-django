@@ -15,7 +15,7 @@ class ScheduleListAPIView(ListAPIView):
     def get_queryset(self):
         queryset = super().get_queryset()
         user_like_celubs = self.request.user.celebrity_set.all()
-        queryset = queryset.filter(celeb__in=user_like_celubs)
+        queryset = queryset.filter(celebrity__in=user_like_celubs)
 
         celeb = self.request.GET.getlist('celeb', None)
         date_type = self.request.GET.get('date_type', None)
