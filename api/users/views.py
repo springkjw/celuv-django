@@ -1,4 +1,3 @@
-import logger
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
