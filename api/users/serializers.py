@@ -45,7 +45,6 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
 
-
 class UserSocialSerializer(serializers.ModelSerializer):
     # 소셜 로그인 유저에 대한 직렬화
     class Meta:
