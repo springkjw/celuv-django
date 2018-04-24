@@ -37,7 +37,7 @@ class Feedback(models.Model):
     )
 
     class Meta:
-        db_table = 'feeback'
+        db_table = 'feedback'
         verbose_name = '피드백'
         verbose_name_plural = '피드백들'
 

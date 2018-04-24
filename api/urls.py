@@ -6,5 +6,5 @@ urlpatterns = [
     path('schedules/', include('api.schedules.urls', namespace='schedule')),
     path('celebrities/', include('api.celebritys.urls', namespace='celebrity')),
     path('devices/', include('api.devices.urls', namespace='device')),
-    path('feedbacks/', include('api.feedbacks.urls', namespace='device')),
+    path('feedbacks/', include('api.feedbacks.urls', namespace='feedback')),
 ]
