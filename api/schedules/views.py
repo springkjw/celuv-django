@@ -23,27 +23,27 @@ class ScheduleListAPIView(ListAPIView):
 
         if celeb:
             selected_celubs = Celebrity.objects.filter(id__in=celeb)
-            queryset = queryset.filter(celeb__in=selected_celubs)
+            queryset = queryset.filter(celebrity__in=selected_celubs)
 
         if not date_type and not req_date:
             # filter by today
             queryset = queryset.filter(
-                start__gte=date.today(),
-                start__lte=date.today() + timedelta(days=30)
+                schedule__gte=date.today(),
+                schedule__lte=date.today() + timedelta(days=30)
             ).order_by('schedule')
         elif date_type:
             if date_type == 'yesterday':
                 queryset = queryset.filter(
-                    start__date=date.today() - timedelta(days=1))
+                    schedule__date=date.today() - timedelta(days=1))
             elif date_type == 'tomorrow':
                 queryset = queryset.filter(
-                    start__date=date.today() + timedelta(days=1))
+                    schedule__date=date.today() + timedelta(days=1))
             elif date_type == 'week':
                 queryset = queryset.filter(
-                    start__week=date.today().isocalendar()[1]).order_by('schedule')
+                    schedule__week=date.today().isocalendar()[1]).order_by('schedule')
         elif req_date:
             queryset = queryset.filter(
-                start__date=datetime.strptime(req_date, "%Y-%m-%d").date())
+                schedule__date=datetime.strptime(req_date, "%Y-%m-%d").date())
         else:
             queryset = queryset.none()
 
