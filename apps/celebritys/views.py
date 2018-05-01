@@ -9,6 +9,17 @@ class CelebrityListView(ListView):
     template_name = 'celebrity/list.html'
     queryset = Celebrity.objects.all()
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        entertainment = self.request.GET.get('entertainment')
+        if entertainment:
+            queryset = queryset.filter(entertainment__name__icontains=entertainment)
+        if self.request.GET.get('name'):
+            queryset = queryset.filter(name__icontains=self.request.GET.get('name'))
+        if self.request.GET.get('celeb_type'):
+            queryset = queryset.filter(celeb_type=self.request.GET.get('celeb_type'))
+        return queryset
+
 
 class CelebrityCreateView(CreateView):
     template_name = 'celebrity/create.html'
