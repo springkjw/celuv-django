@@ -19,7 +19,6 @@ class ScheduleCalendar(HTMLCalendar):
         schedules_html += '<br>'.join(list(set(celebrities)))
         schedules_html += "</ul>"
 
-        print(day, selected.day, today.day)
         if selected.day == day:
             css = 'selected'
         elif today.day == day:

@@ -28,7 +28,6 @@ class ScheduleListAPIView(ListAPIView):
         if not date_type and not req_date:
             # filter by today
             queryset = queryset.filter(
-                schedule__gte=date.today(),
                 schedule__lte=date.today() + timedelta(days=30)
             ).order_by('schedule')
         elif date_type:

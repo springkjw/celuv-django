@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles tz %}
 
 {% block content %}
 <div class="container main schedule">
@@ -30,7 +30,7 @@
                         <div class="schedule-item">
                             <div class="time">
                                 <img src="{% static 'img/time.svg' %}" width=15 height=15 />
-                                {{ object.schedule|date:"H:m" }}
+                                {{ object.schedule|localtime|date:"H:i" }}
                             </div>
                             <div>
                                 <img src="{% static 'img/calendar.svg' %}" width=15 height=15 />

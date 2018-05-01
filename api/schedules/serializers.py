@@ -1,4 +1,6 @@
 import datetime
+from django.utils.timezone import localtime
+
 from rest_framework import serializers
 
 from apps.schedules.models import Schedule
@@ -25,7 +27,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         )
 
     def get_start(self, obj):
-        return datetime.datetime.strftime(obj.schedule, '%Y-%m-%d %H:%m')
+        return datetime.datetime.strftime(obj.schedule, '%Y-%m-%d %H:%M')
 
     def get_content(self, obj):
         return obj.title
