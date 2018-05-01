@@ -37,9 +37,11 @@ class ScheduleMonthlyView(ListView):
         context = super().get_context_data(**kwargs)
         d = datetime.date.today()
         date = self.request.GET.get('date')
+
         if date:
             date = timezone.make_aware(
                 datetime.datetime.strptime(date, '%Y-%m-%d'))
+            d = date
         else:
             date = timezone.now()
         cal = ScheduleCalendar(calendar.SUNDAY)

@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-{% load staticfiles tz %}
+{% load staticfiles tz calendar %}
 
 {% block content %}
 <div class="container main schedule">
     <h2 class="title">
         {{ date|date:"Y년 m월 d일" }}
+        <img 
     </h2>
     <div class="filter">
         <div class="calendar-type">
@@ -12,6 +13,15 @@
                 <img src="{% static 'img/month.svg' %}" width=20 height=20 />
                 월간달력
             </a>
+        </div>
+        <div class="month-type">
+          <a href="?date={{ date|get_prev_month }}">
+              <img src="{% static 'img/month_prev.svg' %}" width=30 height=30 />
+          </a>
+          <a href="?date={{ date|get_next_month }}">
+              <img src="{% static 'img/month_next.svg' %}" width=30 height=30 />
+          </a>
+          <a class="btn" href="?date={% now "Y-m-d" %}">오늘</a>
         </div>
     </div>
     <div class="container">
