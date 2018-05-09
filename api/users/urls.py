@@ -11,7 +11,7 @@ router.register(r'', UserModelViewSet)
 
 app_name = 'user'
 urlpatterns = [
-    path('info', include(router.urls)),
+    path('', include(router.urls)),
     path('social', UserSocialLoginView.as_view(), name='social'),
     path('login', UserLoginView.as_view(), name='login'),
 ]
