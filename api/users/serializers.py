@@ -78,3 +78,13 @@ class UserSocialSerializer(serializers.ModelSerializer):
             )
             return new_user
         return user.first()
+
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUser
+        fields = [
+            'name',
+            'birth',
+            'sex',
+        ]

@@ -6,7 +6,9 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework_jwt.settings import api_settings
 
-from .serializers import UserSocialSerializer, UserSerializer
+from .serializers import (
+    UserSocialSerializer, UserSerializer, UserInfoSerializer,
+)
 
 from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
 
@@ -81,3 +83,13 @@ class UserModelViewSet(ModelViewSet):
     #         status=status.HTTP_201_CREATED,
     #         headers=headers
     #     )
+
+
+class UserInfoView(GenericAPIView):
+    serializer_class = UserInfoSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
