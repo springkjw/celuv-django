@@ -1,11 +1,12 @@
 from django.urls import path
 from .views import (
     UserSocialLoginView, UserLoginView, UserModelViewSet,
-    UserInfoView, UserImageView,
+    UserInfoView, UserImageView, UserSignupAPIView,
 )
 
 app_name = 'user'
 urlpatterns = [
+    path('', UserSignupAPIView.as_view()),
     path('info/', UserInfoView.as_view(), name='info'),
     path('image', UserImageView.as_view(), name='image'),
     path('social', UserSocialLoginView.as_view(), name='social'),

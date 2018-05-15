@@ -96,3 +96,19 @@ class UserImageSerializer(serializers.ModelSerializer):
         fields = [
             'image',
         ]
+
+
+class UserFindPasswordSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class UserSignupSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        email = attrs.get('email')
+        if MyUser.objects.filter(email=email).exists():
+            raise serializers.ValidationError('이미 가입된 유저입니다.')
+
+        return attrs

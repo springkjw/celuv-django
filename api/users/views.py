@@ -8,7 +8,8 @@ from rest_framework_jwt.settings import api_settings
 
 from .serializers import (
     UserSocialSerializer, UserSerializer, UserInfoSerializer,
-    UserImageSerializer,
+    UserImageSerializer, UserFindPasswordSerializer,
+    UserSignupSerializer,
 )
 
 from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
@@ -63,6 +64,20 @@ class UserModelViewSet(ModelViewSet):
     lookup_field = 'uuid'
 
 
+class UserSignupAPIView(GenericAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserSignupSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        get_user_model().objects.create_user(
+            email=serializer.data.get('email'),
+            password=serializer.data.get('password')
+        )
+        return Response()
+
+
 class UserInfoView(UpdateAPIView):
     serializer_class = UserInfoSerializer
 
@@ -81,3 +96,14 @@ class UserImageView(UpdateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+
+class UserFindPasswordAPIView(GenericAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = UserFindPasswordSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.data.get('email')
+        return Response()
