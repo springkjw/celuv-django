@@ -1,9 +1,12 @@
-from rest_framework.generics import RetrieveUpdateAPIView
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
 
 from .serializers import NotificationSerializer
 from apps.notifications.models import Notification
 
 
-class NotificationView(RetrieveUpdateAPIView):
+class NotificationView(GenericAPIView):
     serializer_class = NotificationSerializer
-    queryset = Notification.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return Response()
