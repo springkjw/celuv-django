@@ -32,7 +32,6 @@ class UserSocialLoginView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         user = serializer.save()
-        print(user)
         token = self.create_token(user)
         response_data = jwt_response_payload_handler(token, user, request)
         response = Response(response_data)
@@ -64,15 +63,13 @@ class UserModelViewSet(ModelViewSet):
     lookup_field = 'uuid'
 
 
-class UserInfoView(RetrieveUpdateAPIView):
+class UserInfoView(UpdateAPIView):
     serializer_class = UserInfoSerializer
 
     def get_object(self):
         return self.request.user
 
     def post(self, request, *args, **kwargs):
-        import logging
-        logging.error(kwargs)
         return self.partial_update(request, *args, **kwargs)
 
 
@@ -81,3 +78,6 @@ class UserImageView(UpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+    def post(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)

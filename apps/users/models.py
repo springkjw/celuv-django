@@ -52,7 +52,7 @@ class MyUserManager(BaseUserManager):
 
 
 def user_profile_image(instance, filename):
-    return "%s/%s" % (instance.id, filename)
+    return "%s/%s" % (instance.uuid, filename)
 
 
 class MyUser(AbstractBaseUser):

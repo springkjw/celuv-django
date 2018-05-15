@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_profile_image(self, obj):
         if obj.image:
-            return obj.image
+            return obj.image.url
         return None
 
     def get_is_staff(self, obj):
