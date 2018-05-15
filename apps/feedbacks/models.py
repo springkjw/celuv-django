@@ -54,7 +54,7 @@ class Report(models.Model):
         verbose_name="제보할 연예인"
     )
     url = models.CharField(
-        max_length=255,
+        max_length=500,
         blank=True,
         verbose_name="제보 관련 url"
     )
@@ -71,3 +71,35 @@ class Report(models.Model):
         db_table = 'report'
         verbose_name = "제보"
         verbose_name_plural = "제보들"
+
+
+def report_image(instance, filename):
+    return "report/%s/%s" % (
+        instance.id,
+        filename
+    )
+
+
+class ReportImage(models.Model):
+    report = models.ForeignKey(
+        Report,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name='제보'
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='시간'
+    )
+    image_url = models.ImageField(
+        upload_to=report_image,
+        verbose_name='제보'
+    )
+
+    class Meta:
+        db_table = 'report_image'
+        verbose_name = '제보 이미지'
+        verbose_name_plural = '제보 이미지들'
+
+    def get_report_image(self):
+        return str(self.image_url.url)

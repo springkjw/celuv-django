@@ -185,7 +185,7 @@ AWS_S3_SECRET_ACCESS_KEY = 'DvTdmqbqYac7S5d+1VzGEiUpV1LKrVRhQHYynpfg'
 #     },
 #     'handlers': {
 #         'sentry': {
-#             'level': 'INFO', # To capture more than ERROR, change to WARNING, INFO, etc.
+#             'level': 'INFO',
 #             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
 #             'tags': {'custom-tag': 'x'},
 #         },
