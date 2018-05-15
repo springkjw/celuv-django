@@ -26,7 +26,6 @@ class NotificationSerializer(serializers.ModelSerializer):
 
     def get_celebrity(self, obj):
         celebrity = obj.user.celebrity_set.all()
-        print(obj.target)
         data = [{
             'celebrity_id': c.id,
             'celebrity': c.name,
