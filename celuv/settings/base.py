@@ -172,7 +172,7 @@ AWS_S3_SECRET_ACCESS_KEY = 'DvTdmqbqYac7S5d+1VzGEiUpV1LKrVRhQHYynpfg'
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    # 'disable_existing_loggers': True,
     'root': {
         'level': 'INFO',
         'handlers': ['sentry'],
@@ -190,7 +190,7 @@ LOGGING = {
             'tags': {'custom-tag': 'x'},
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose'
         }

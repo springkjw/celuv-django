@@ -72,7 +72,7 @@ class UserInfoView(RetrieveUpdateAPIView):
 
     def post(self, request, *args, **kwargs):
         import logging
-        logging.debug(args, kwargs)
+        logging.error(kwargs)
         return self.partial_update(request, *args, **kwargs)
 
 
