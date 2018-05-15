@@ -68,3 +68,6 @@ class UserInfoView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+    def post(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
