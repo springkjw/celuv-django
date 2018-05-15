@@ -9,4 +9,5 @@ class NotificationView(GenericAPIView):
     serializer_class = NotificationSerializer
 
     def get(self, request, *args, **kwargs):
-        return Response()
+        serializer = self.get_serializer()
+        return Response(serializer.data)
