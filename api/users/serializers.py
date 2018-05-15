@@ -88,3 +88,11 @@ class UserInfoSerializer(serializers.ModelSerializer):
             'birth',
             'sex',
         ]
+
+
+class UserImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUser
+        fields = [
+            'image',
+        ]

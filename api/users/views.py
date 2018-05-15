@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
+from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView, UpdateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -8,6 +8,7 @@ from rest_framework_jwt.settings import api_settings
 
 from .serializers import (
     UserSocialSerializer, UserSerializer, UserInfoSerializer,
+    UserImageSerializer,
 )
 
 from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
@@ -71,3 +72,10 @@ class UserInfoView(RetrieveUpdateAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.partial_update(request, *args, **kwargs)
+
+
+class UserImageView(UpdateAPIView):
+    serializer_class = UserImageSerializer
+
+    def get_object(self):
+        return self.request.user
