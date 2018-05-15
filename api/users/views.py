@@ -62,31 +62,14 @@ class UserModelViewSet(ModelViewSet):
     queryset = get_user_model().objects.all()
     lookup_field = 'uuid'
 
-    # def create_token(self, user):
-    #     jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-    #     jwt_encode_hanlder = api_settings.JWT_ENCODE_HANDLER
-    #     payload = jwt_payload_handler(user)
-    #     token = jwt_encode_hanlder(payload)
-    #     return token
-
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-
-    #     user = self.perform_create(serializer)
-    #     headers = self.get_success_headers(serializer.data)
-    #     token = self.create_token(user)
-    #     response_data = jwt_response_payload_handler(token, user, request)
-
-    #     return Response(
-    #         response_data,
-    #         status=status.HTTP_201_CREATED,
-    #         headers=headers
-    #     )
-
 
 class UserInfoView(GenericAPIView):
     serializer_class = UserInfoSerializer
+
+    def get(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

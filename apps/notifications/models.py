@@ -8,6 +8,7 @@ class Notification(models.Model):
         on_delete=models.CASCADE,
         verbose_name='유저'
     )
+    # is_active = models.C
 
     class Meta:
         db_table = 'notification'
