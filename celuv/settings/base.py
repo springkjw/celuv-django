@@ -51,7 +51,6 @@ MIDDLEWARE = [
     'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',
 ]
 
-APPEND_SLASH = False
 ROOT_URLCONF = 'celuv.urls'
 LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/'
@@ -171,47 +170,46 @@ AWS_S3_ACCESS_KEY_ID = 'AKIAIAMY5ESYHE5QC4NQ'
 AWS_S3_SECRET_ACCESS_KEY = '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'
 
 
-LOGGING = {
-    'version': 1,
-    # 'disable_existing_loggers': True,
-    'root': {
-        'level': 'INFO',
-        'handlers': ['sentry'],
-    },
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s '
-                      '%(process)d %(thread)d %(message)s'
-        },
-    },
-    'handlers': {
-        'sentry': {
-            # To capture more than ERROR, change to WARNING, INFO, etc.
-            'level': 'INFO',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            'tags': {'custom-tag': 'x'},
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'raven': {
-            'level': 'INFO',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'INFO',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     # 'disable_existing_loggers': True,
+#     'root': {
+#         'level': 'INFO',
+#         'handlers': ['sentry'],
+#     },
+#     'formatters': {
+#         'verbose': {
+#             'format': '%(levelname)s %(asctime)s %(module)s '
+#                       '%(process)d %(thread)d %(message)s'
+#         },
+#     },
+#     'handlers': {
+#         'sentry': {
+#             'level': 'INFO', # To capture more than ERROR, change to WARNING, INFO, etc.
+#             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+#             'tags': {'custom-tag': 'x'},
+#         },
+#         'console': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'verbose'
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'ERROR',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#         'raven': {
+#             'level': 'INFO',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#         'sentry.errors': {
+#             'level': 'INFO',
+#             'handlers': ['console'],
+#             'propagate': False,
+#         },
+#     },
+# }
