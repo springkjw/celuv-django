@@ -27,7 +27,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
         )
 
     def get_start(self, obj):
-        local = timezone.localtime(obj.schedule)
+        local = localtime(obj.schedule)
         return datetime.datetime.strftime(local, '%Y-%m-%d %H:%M')
 
     def get_content(self, obj):
