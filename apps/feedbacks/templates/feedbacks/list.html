@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container main feedback">
+  <h2 class="title">팬 제보 관리</h2>
+  <div class="title-button-group" style="display:flex;justify-content: space-between;margin-bottom: 20px;">
+    <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='{% url 'celebrity:create' %}'">셀럽 추가</button>
+    <div>
+      <form method="GET" class="search-form">
+        <input placeholder="검색어를 입력하세요" name="search" />
+      </form>
+    </div>
+  </div>
+  <div class="feedback-list">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">NO</th>
+          <th scope="col">상태</th>
+          <th scope="col">셀럽명</th>
+          <th scope="col">관련자료</th>
+          <th scope="col">등록일</th>
+          <th scope="col">사용자명</th>
+          <th scope="col">검토 여부</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for object in object_list %}
+          <tr>
+            <td>{{ object.pk }}</td>
+            {% if object.is_confirm %}
+              <td>검토완료</td>
+            {% else %}
+              <td>미검토</td>
+            {% endif %}
+            <td>{{ object.celebrity }}</td>
+            <td>{{ object.url }}</td>
+            <td>{{ object.timestamp }}</td>
+            <td>
+              {% if object.user.name %}
+                {{ object.user.name }}
+              {% else %}
+                {{ object.user.email }}
+              {% endif %}
+            </td>
+            <td>
+              {% if not object.is_confirm %}
+                <form method="POST" action="{% url 'feedback:update' object.pk %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="is_confirm" value="true" />
+                  <button type="submit">확인</button>
+                </form>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
