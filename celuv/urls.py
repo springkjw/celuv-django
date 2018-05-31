@@ -3,6 +3,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework_swagger.views import get_swagger_view
+
+schema_view = get_swagger_view(title='Pastebin API')
+
 urlpatterns = [
     path('', include('apps.bases.urls', namespace='base')),
     path('user/', include('apps.users.urls', namespace='user')),
@@ -14,6 +18,7 @@ urlpatterns = [
     path('api/v1/', include('api.urls', namespace='api')),
     path('select2/', include('django_select2.urls')),
     path('admin/', admin.site.urls),
+    path('docs/', schema_view),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

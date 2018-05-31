@@ -20,6 +20,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'storages',
     'rest_framework',
+    'rest_framework_swagger',
     'django_select2',
     'push_notifications',
     'raven.contrib.django.raven_compat',
