@@ -2,21 +2,21 @@ import os
 from django.conf import settings
 
 from rest_framework_jwt.utils import jwt_decode_handler
-from storages.backends.s3boto import S3BotoStorage
+from storages.backends.s3boto3 import S3Boto3Storage
 
 from api.users.serializers import UserSerializer
 
 
-def StaticRootS3BotoStorage(): return S3BotoStorage(location='static')
+def StaticRootS3BotoStorage(): return S3Boto3Storage(location='static')
 
 
-def MediaRootS3BotoStorage(): return S3BotoStorage(location='media')
+def MediaRootS3BotoStorage(): return S3Boto3Storage(location='media')
 
 
 os.environ['S3_USE_SIGV4'] = 'True'
 
 
-class S3Storage(S3BotoStorage):
+class S3Storage(S3Boto3Storage):
     @property
     def connection(self):
         if self._connection is None:
