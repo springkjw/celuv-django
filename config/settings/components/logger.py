@@ -34,7 +34,7 @@ if ENV != 'development':
             },
             'raven': {
                 'level': 'DEBUG',
-                'handlers': ['console'],
+                'handlers': ['console', 'sentry'],
                 'propagate': False,
             },
             'sentry.errors': {

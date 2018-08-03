@@ -15,7 +15,7 @@ from .serializers import (
 
 from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('raven')
 
 
 class UserSocialLoginView(GenericAPIView):
