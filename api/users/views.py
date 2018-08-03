@@ -1,3 +1,4 @@
+import logging
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView, UpdateAPIView
@@ -13,6 +14,8 @@ from .serializers import (
 )
 
 from rest_framework_jwt.views import ObtainJSONWebToken, jwt_response_payload_handler
+
+logger = logging.getLogger(__name__)
 
 
 class UserSocialLoginView(GenericAPIView):
@@ -82,6 +85,8 @@ class UserInfoView(UpdateAPIView):
     serializer_class = UserInfoSerializer
 
     def get_object(self):
+        if not self.request.user.is_authenticated:
+            logger.error('비회원 접근 감지')
         return self.request.user
 
     def post(self, request, *args, **kwargs):
