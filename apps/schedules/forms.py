@@ -20,4 +20,5 @@ class ScheduleForm(forms.ModelForm):
             'schedule',
             'title',
             'celebrity',
+            'url',
         )

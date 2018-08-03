@@ -15,6 +15,12 @@ class Schedule(models.Model):
         Celebrity,
         verbose_name='출연 셀럽'
     )
+    url = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name='콘텐츠 URL'
+    )
 
     class Meta:
         db_table = 'schedule'

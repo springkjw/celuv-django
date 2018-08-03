@@ -24,6 +24,7 @@ class ScheduleSerializer(serializers.ModelSerializer):
             'celeb',
             'schedule_type',
             'is_notification',
+            'url',
         )
 
     def get_start(self, obj):
