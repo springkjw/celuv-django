@@ -11,5 +11,6 @@
     "**/.DS_Store": true,
     "venv": false
 },
-"git.ignoreLimitWarning": true
+"git.ignoreLimitWarning": true,
+"python.linting.pylintEnabled": false
 }

@@ -5,7 +5,7 @@ if ENV != 'development':
         'version': 1,
         'disable_existing_loggers': True,
         'root': {
-            'level': 'WARNING',
+            'level': 'DEBUG',
             'handlers': ['sentry'],
         },
         'formatters': {
@@ -34,7 +34,7 @@ if ENV != 'development':
             },
             'raven': {
                 'level': 'DEBUG',
-                'handlers': ['console', 'sentry'],
+                'handlers': ['console'],
                 'propagate': False,
             },
             'sentry.errors': {
