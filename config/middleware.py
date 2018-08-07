@@ -80,5 +80,5 @@ class UnAuthorizationMiddleware:
         path = request.path_info.lstrip('/')
 
         if not request.user.is_authenticated and 'info' in path:
-            logger.error('test')
+            logger.error('test1')
         return self.get_response(request)

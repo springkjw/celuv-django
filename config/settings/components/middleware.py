@@ -7,9 +7,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'config.middleware.UnAuthorizationMiddleware',
     'config.middleware.LoginRequiredMiddleware',
     'config.middleware.ResponseFormattingMiddleware',
-    'config.middleware.UnAuthorizationMiddleware',
     'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
     'raven.contrib.django.raven_compat.middleware.SentryResponseErrorIdMiddleware',
 ]
