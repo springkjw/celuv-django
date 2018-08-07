@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 from rest_framework.status import is_client_error, is_success
 
-EXEMPT_URLS = [compile(settings.LOGIN_URL.lstrip('/'))]
+EXEMPT_URLS = [compile(settings.LOGIN_URL.lstrip('/')), compile(r'^api/')]
 if hasattr(settings, 'LOGIN_EXEMPT_URLS'):
     EXEMPT_URLS += [compile(expr) for expr in settings.LOGIN_EXEMPT_URLS]
 
@@ -77,6 +77,8 @@ class UnAuthorizationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        if not request.user.is_authenticated:
+        path = request.path_info.lstrip('/')
+
+        if not request.user.is_authenticated and 'info' in path:
             logger.error('test')
         return self.get_response(request)
